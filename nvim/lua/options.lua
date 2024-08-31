@@ -65,3 +65,6 @@ vim.opt.tabstop = 4
 -- Make a column a different color to show when the file has lines that are too
 --  long.
 vim.opt.colorcolumn = "80"
+
+-- Stop the Neovim intro screen from being shown.
+vim.opt.shortmess:append("I")
