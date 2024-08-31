@@ -1,4 +1,4 @@
--- use :NoNeckPain to center the buffer (with left and right borders)
+-- Add a padding buffer to center the regular buffers.
 return {
 	{
 		"shortcuts/no-neck-pain.nvim",
@@ -13,8 +13,7 @@ return {
 					},
 				},
 			})
-			-- NoNeckPain.enable()
-			vim.keymap.set("n", "<leader>np", "<cmd>NoNeckPain<cr>", { desc = "Toggle No[N]eck[P]ain" })
+			vim.keymap.set("n", "<leader>tn", vim.cmd.NoNeckPain, { desc = "Toggle [n]oNeckPain" })
 		end,
 	},
 }

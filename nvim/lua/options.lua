@@ -1,72 +1,67 @@
--- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
--- Make line numbers default
+-- Line numbers.
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
+-- Relative line numbers.
 vim.opt.relativenumber = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
+-- Enable mouse for [a]ll modes.
 vim.opt.mouse = "a"
 
--- Don't show the mode, since it's already in the status line
+-- If the mode is shown in the line where I write commands and search.
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
--- On Wayland you may want to install `wl-clipboard` to have a working clipboard provider
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- vim.opt.clipboard = "unnamedplus"
+-- On Wayland I may want to install `wl-clipboard` to have a working
+--  clipboard provider.
+--vim.opt.clipboard = "unnamedplus"
 
--- Enable break indent
+-- Every wrapped line will continue visually indented.
 vim.opt.breakindent = true
 
--- Save undo history
+-- Save undo history after file closes.
 vim.opt.undofile = true
 
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+-- Case-insensitive searching UNLESS \C or one or more capital letters in the
+--  search term.
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
--- Keep signcolumn on by default
--- I think this adds a column to the left for whatever wants it, like `gitsigns`
+-- Add a column to the left of line numbers for symbols (for stuff like
+--  `gitsigns`).
 vim.opt.signcolumn = "yes"
 
--- Decrease update time
+-- How long it waits to write the swap file to disk.
 vim.opt.updatetime = 250
 
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
+-- How long it waits for a mapped sequence to complete.
+-- Also affects `which-key`.
 vim.opt.timeoutlen = 300
 
--- Configure how new splits should be opened
+-- How new splits should be opened.
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
--- vim.opt.list = true
--- vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+-- How it will display certain whitespace characters in the editor.
+vim.opt.list = true
+vim.opt.listchars = {
+	trail = "·",
+	-- `tab` has "^I" as a default.
+	tab = "  ",
+}
 
--- Preview substitutions live, as you type!
+-- Preview substitutions as I type.
 vim.opt.inccommand = "split"
 
--- Show which line your cursor is on
+-- Show which line my cursor is on.
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- Set the shiftwidth (how many spaces an indentation uses)
--- and tabstop (how many spaces a <Tab> is represented by)
--- options to 4
+-- How many spaces an indentation uses.
 vim.opt.shiftwidth = 4
+-- How many spaces a <Tab> is represented by.
 vim.opt.tabstop = 4
 
--- Make column 80 a different color
--- To show when the file has lines that are too long
+-- Make a column a different color to show when the file has lines that are too
+--  long.
 vim.opt.colorcolumn = "80"

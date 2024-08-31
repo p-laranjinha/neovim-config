@@ -1,5 +1,4 @@
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
+-- Install `lazy.nvim` plugin manager if it's not installed.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -7,24 +6,17 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure `lazy.nvim` ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
 require("lazy").setup({
-	-- Load all the .lua files inside the lua/plugins folder as lazy plugins (init.lua has priority?)
+	-- Load all the .lua files inside the lua/plugins folder as lazy plugins.
+	-- `init.lua` has priority?
 	spec = {
 		{ import = "plugins" },
 	},
 	change_detection = { notify = false },
 	ui = {
-		-- If you are using a Nerd Font: set icons to an empty table which will use the
-		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+		-- If I am using a Nerd Font: set icons to an empty table which will
+		--  use the default lazy.nvim defined Nerd Font icons, otherwise define
+		--  a unicode icons table.
 		icons = vim.g.have_nerd_font and {} or {
 			cmd = "⌘",
 			config = "🛠",
