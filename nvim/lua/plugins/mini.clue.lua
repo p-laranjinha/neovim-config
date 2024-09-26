@@ -45,7 +45,7 @@ return {
 					{ mode = "n", keys = "<leader>s", desc = "+[s]earch" },
 					{ mode = "n", keys = "<leader>w", desc = "+[w]orkspace" },
 					{ mode = "n", keys = "<leader>t", desc = "+[t]oggle" },
-					{ mode = "n", keys = "<leader>\\", desc = "+Projects" },
+					{ mode = "n", keys = "<leader>\\", desc = "+Sessions" },
 					{ mode = "n", keys = "<leader>h", desc = "+Git [h]unk" },
 					{ mode = "v", keys = "<leader>h", desc = "+Git [h]unk" },
 
