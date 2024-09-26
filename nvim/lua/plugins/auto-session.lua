@@ -7,9 +7,9 @@ return {
 		},
 		keys = {
 			-- Will use Telescope if installed or a vim.ui.select picker otherwise
-			{ "<leader>ps", "<cmd>SessionSearch<CR>", desc = "Session search" },
-			{ "<leader>pw", "<cmd>SessionSave<CR>", desc = "Session [w]rite/save" },
-			{ "<leader>pd", "<cmd>SessionDelete<CR>", desc = "Session [d]elete" },
+			{ "<leader>\\s", "<cmd>SessionSearch<CR>", desc = "Session search" },
+			{ "<leader>\\w", "<cmd>SessionSave<CR>", desc = "Session [w]rite/save" },
+			{ "<leader>\\d", "<cmd>SessionDelete<CR>", desc = "Session [d]elete" },
 			{ "<leader>ts", "<cmd>SessionToggleAutoSave<CR>", desc = "Toggle [s]ession autosave" },
 		},
 

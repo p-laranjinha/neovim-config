@@ -22,7 +22,7 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 
 -- Yank to and paste from the system clipboard.
 vim.keymap.set({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "[y]ank to clipboard with motions" })
-vim.keymap.set({ "n", "v", "x" }, "<leader>Y", '"+Y', { desc = "[Y]ank to clipboard until the end of the line" })
+vim.keymap.set({ "n", "v", "x" }, "<leader>Y", 'v$"+y', { desc = "[Y]ank to clipboard until the end of the line" })
 vim.keymap.set("n", "<leader>p", '"+p', { desc = "[p]aste from clipboard" })
 
 vim.keymap.set("n", "<leader>n", vim.cmd.ene, { desc = "[n]ew unnamed buffer" })
