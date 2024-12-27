@@ -133,11 +133,7 @@ return {
 				--  https://github.com/pmizio/typescript-tools.nvim
 				--  But for many setups, the LSP (`tsserver`) will work just fine.
 
-				--clangd = {},
-				--gopls = {},
-				--pyright = {},
-				--rust_analyzer = {},
-				--tsserver = {},
+				ts_ls = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -149,36 +145,26 @@ return {
 						},
 					},
 				},
-				-- https://jdhao.github.io/2023/07/22/neovim-pylsp-setup/
-				pylsp = {
-					mason = false,
+				pyright = {
 					settings = {
-						pylsp = {
-							plugins = {
-								ruff = { enabled = true },
-								pylsp_mypy = { enabled = true },
-								rope_autoimport = { enabled = true },
-								jedi_completion = { enabled = true, fuzzy = true },
-								isort = { enabled = true },
+						python = {
+							analysis = {
+								autoSearchPaths = true,
+								autoImportCompletions = true,
+								diagnosticMode = "workspace",
+								useLibraryCodeForTypes = true,
 							},
 						},
 					},
-					flags = {
-						debounce_text_changes = 200,
-					},
-					capabilities = capabilities,
 				},
 			}
 
 			require("mason").setup()
-			-- Add other tools here for Mason to install automatically,
-			--  so that they are available from within Neovim.
-			local ensure_installed = vim.tbl_keys(servers or {})
-			vim.list_extend(ensure_installed, {
-				"stylua",
-			})
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+			require("mason-tool-installer").setup({ ensure_installed = { "stylua" } })
 			require("mason-lspconfig").setup({
+				ensure_installed = vim.tbl_keys(servers or {}),
+				automatic_installation = { --[[ exclude = { "pylsp", "pyright" } ]]
+				},
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
