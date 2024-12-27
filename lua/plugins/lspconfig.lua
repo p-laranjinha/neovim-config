@@ -149,6 +149,25 @@ return {
 						},
 					},
 				},
+				-- https://jdhao.github.io/2023/07/22/neovim-pylsp-setup/
+				pylsp = {
+					mason = false,
+					settings = {
+						pylsp = {
+							plugins = {
+								ruff = { enabled = true },
+								pylsp_mypy = { enabled = true },
+								rope_autoimport = { enabled = true },
+								jedi_completion = { enabled = true, fuzzy = true },
+								isort = { enabled = true },
+							},
+						},
+					},
+					flags = {
+						debounce_text_changes = 200,
+					},
+					capabilities = capabilities,
+				},
 			}
 
 			require("mason").setup()
