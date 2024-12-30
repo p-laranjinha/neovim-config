@@ -160,7 +160,7 @@ return {
 			}
 
 			require("mason").setup()
-			require("mason-tool-installer").setup({ ensure_installed = { "stylua" } })
+			require("mason-tool-installer").setup({ ensure_installed = { "stylua", "black" } })
 			require("mason-lspconfig").setup({
 				ensure_installed = vim.tbl_keys(servers or {}),
 				automatic_installation = { --[[ exclude = { "pylsp", "pyright" } ]]
@@ -175,6 +175,18 @@ return {
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 						require("lspconfig")[server_name].setup(server)
 					end,
+				},
+			})
+		end,
+	},
+	-- Setup null-ls with `black`
+	{
+		"nvimtools/none-ls.nvim",
+		config = function()
+			local null_ls = require("null-ls")
+			null_ls.setup({
+				sources = {
+					null_ls.builtins.formatting.black,
 				},
 			})
 		end,
