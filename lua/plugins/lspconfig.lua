@@ -179,14 +179,18 @@ return {
 			})
 		end,
 	},
-	-- Setup null-ls with `black`
 	{
+		-- Formatting
 		"nvimtools/none-ls.nvim",
 		config = function()
 			local null_ls = require("null-ls")
 			null_ls.setup({
 				sources = {
+					-- Python
 					null_ls.builtins.formatting.black,
+
+					-- Nix
+					null_ls.builtins.formatting.alejandra,
 				},
 			})
 		end,
