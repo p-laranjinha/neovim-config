@@ -14,10 +14,12 @@ return {
 			definition_action_keys = {
 				edit = "<CR>",
 			},
+			-- Doesn't work with efm-langserver's init_options.documentSymbol=true
+			symbol_in_winbar = { enable = false },
 		})
 	end,
 	dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-        "nvim-tree/nvim-web-devicons"
+		"nvim-treesitter/nvim-treesitter",
+		"nvim-tree/nvim-web-devicons",
 	},
 }

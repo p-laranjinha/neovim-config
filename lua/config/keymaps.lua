@@ -14,14 +14,6 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
--- Splitting & Resizing
-vim.keymap.set("n", "<leader>sv", "<Cmd>vsplit<CR>", { desc = "Split window vertically" })
-vim.keymap.set("n", "<leader>sh", "<Cmd>split<CR>", { desc = "Split window horizontally" })
-vim.keymap.set("n", "<C-Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
-vim.keymap.set("n", "<C-Down>", "<Cmd>resize -2<CR>", { desc = "Decrease window height" })
-vim.keymap.set("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
-vim.keymap.set("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increase window width" })
-
 -- Better indenting in visual mode
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
@@ -32,18 +24,22 @@ vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position"
 -- Quick config editing
 vim.keymap.set("n", "<leader>rc", "<Cmd>e ~/.config/nvim/init.lua<CR>", { desc = "Edit config" })
 
--- File Explorer
-vim.keymap.set("n", "<leader>m", "<Cmd>NvimTreeFocus<CR>", { desc = "Focus on File Explorer" })
-vim.keymap.set("n", "<leader>e", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })
+-- Yank to and paste from the system clipboard.
+vim.keymap.set({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard with motions" })
+vim.keymap.set("n", "<leader>Y", 'v$"+y', { desc = "Yank to clipboard until the end of the line" })
+vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from clipboard" })
+vim.keymap.set("n", "<leader>P", '"+P', { desc = "Paste from clipboard before" })
 
--- Y to EOL
-vim.keymap.set("n", "Y", "y$", { desc = "Yank to end of line" })
-
--- Paste without yanking
-vim.keymap.set("x", "p", '"_dP', { desc = "Paste without yanking" })
-
--- Delete without yanking
-vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
+-- Delete and paste without yanking (only on Visual mode so it doesn't interfere with other keymaps)
+vim.keymap.set("v", "<leader>d", '"_d', { desc = "Delete without yanking" })
+vim.keymap.set("v", "<leader>p", '"_dP', { desc = "Paste without yanking" })
 
 -- Clear search highlighting by pressing <Esc> in normal mode.
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- Toggles
+vim.keymap.set("n", "<leader>tt", "<Cmd>NvimTreeFindFileToggle<CR>", { desc = "Tree (File Explorer)" })
+vim.keymap.set("n", "<leader>tu", function()
+	vim.cmd.UndotreeToggle()
+	vim.cmd.UndotreeFocus()
+end, { desc = "Undotree" })

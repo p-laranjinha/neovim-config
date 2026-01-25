@@ -27,6 +27,7 @@ require("mason-tool-installer").setup({
 		"emmet_ls", -- html/js/etc language server for dynamic snippets
 
 		"jsonls", -- json language server
+		"fixjson", -- json formatter
 		"yamlls", -- yaml language server, linter, formatter
 		"tombi", -- toml language server, linter, formatter
 	},
