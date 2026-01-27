@@ -64,8 +64,10 @@ return function(capabilities)
 			if vim.tbl_isempty(efm) then
 				return
 			end
-			-- async=true causes the file to not be saved after the format
-			vim.lsp.buf.format({ name = "efm", async = false })
+			if not vim.g.disable_autoformatting then
+				-- async=true causes the file to not be saved after the format
+				vim.lsp.buf.format({ name = "efm", async = false })
+			end
 		end,
 	})
 end

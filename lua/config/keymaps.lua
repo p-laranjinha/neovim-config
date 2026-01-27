@@ -186,3 +186,6 @@ keymap("n", "<leader>+q", ":cdo ", {
 keymap("n", "<leader>+:", "q: ", {
 	desc = "[q:] Open cmd window where you can see the history and use modes (insert, visual, ...). Open window in regular cmd with <C-f>.",
 })
+keymap("n", "<leader>+w", "<cmd>W<CR>", {
+	desc = "[:W] Custom command to save without formatting.",
+})

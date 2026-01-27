@@ -1,6 +1,6 @@
 -- Automatically run code on defined events.
--- This file is mostly for autocmds that don't use plugins, the ones that do should go in the
---  corresponding plugin folder.
+
+-- INFO: The format on write autocmd can be found in: ../servers/efm-langserver.lua
 
 -- Restore last cursor position when reopening a file
 local last_cursor_group = vim.api.nvim_create_augroup("LastCursorGroup", {})
