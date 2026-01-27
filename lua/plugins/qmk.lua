@@ -1,7 +1,6 @@
 return {
 	"codethread/qmk.nvim",
 	config = function()
-		---@type qmk.UserConfig
 		local conf = {
 			name = "cosmos",
 			variant = "zmk",
