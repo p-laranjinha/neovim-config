@@ -34,6 +34,7 @@ return {
 			{ "<leader>P", icon = "󰆒" },
 			{ "<leader>u", icon = "󰕍" },
 			{ "<leader>tu", icon = "󰕍" },
+			{ "<leader>r", icon = "🅻" },
 
 			-- mini.indentscope new descriptions and icons
 			{ "ii", mode = "ox", desc = "Indent (Object scope)", icon = "󰉶" },
