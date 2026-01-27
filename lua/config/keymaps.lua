@@ -44,6 +44,12 @@ keymap("v", "<leader>p", '"_dP', { desc = "Paste without yanking" })
 -- Clear search highlighting by pressing <Esc> in normal mode.
 keymap("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+-- Removing default diagnostics jumping
+vim.keymap.del("n", "[d")
+vim.keymap.del("n", "]d")
+vim.keymap.del("n", "[D")
+vim.keymap.del("n", "]D")
+
 --== which-key
 
 -- Show global which-key keymaps.
@@ -178,11 +184,6 @@ keymap({ "o", "x" }, "ag", "<cmd>Gitsigns select_hunk<CR>", { desc = "Git hunk" 
 
 --== markview
 keymap("n", "<leader>tm", "<cmd>Markview<CR>", { desc = "Markview" })
-
---== Custom
-keymap("n", "<leader>tf", function()
-	vim.g.autoformat = not vim.g.autoformat
-end, { desc = "Formatting on save" })
 
 --== Extras
 keymap("n", "<leader>+q", ":cdo ", {

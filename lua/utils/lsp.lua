@@ -7,6 +7,10 @@ M.on_attach = function(event)
 	if not client then
 		return
 	end
+
+	-- Used by lualine to know when to display symbols
+	vim.b.has_lsp = true
+
 	local bufnr = event.buf
 	local keymap = function(mode, lhs, rhs, opts)
 		vim.keymap.set(
@@ -67,6 +71,12 @@ M.on_attach = function(event)
 	keymap("n", "]x", function()
 		vim.diagnostic.jump({ count = 1, float = true })
 	end, { desc = "Diagnostic" })
+	keymap("n", "[X", function()
+		vim.diagnostic.jump({ count = -999, float = true })
+	end, { desc = "First diagnostic" })
+	keymap("n", "]X", function()
+		vim.diagnostic.jump({ count = 999, float = true })
+	end, { desc = "Last diagnostic" })
 	keymap("n", "<leader>xx", function()
 		vim.diagnostic.open_float({ scope = "cursor" })
 	end, { desc = "Cursor diagnostics" })
@@ -123,6 +133,28 @@ M.on_attach = function(event)
 		keymap("n", "<leader>th", function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 		end, { desc = "Inlay hints" })
+	end
+
+	if client.name == "efm" then
+		keymap("n", "<leader>tf", function()
+			vim.g.autoformat = not vim.g.autoformat
+		end, { desc = "Formatting on save" })
+
+		-- format on save using efm langserver and configured formatters
+		local lsp_fmt_group = vim.api.nvim_create_augroup("FormatOnSaveGroup", {})
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			group = lsp_fmt_group,
+			callback = function()
+				local efm = vim.lsp.get_clients({ name = "efm" })
+				if vim.tbl_isempty(efm) then
+					return
+				end
+				if vim.g.autoformat then
+					-- async=true causes the file to not be saved after the format
+					vim.lsp.buf.format({ name = "efm", async = false })
+				end
+			end,
+		})
 	end
 end
 

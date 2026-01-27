@@ -1,3 +1,5 @@
+-- I'm leaving this here and not as a LSP buffer-local command because I ofter mistype :W and want
+--  to keep the option.
 local write_without_formatting = function(bang)
 	if not vim.g.autoformat then
 		vim.cmd.write({ bang = bang })

@@ -26,7 +26,9 @@ return {
 					"filename",
 					{
 						symbols.get,
-						cond = symbols.has,
+						cond = function()
+							return symbols.has() and (vim.b.has_lsp == true)
+						end,
 					},
 				},
 			},
