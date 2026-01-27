@@ -3,7 +3,7 @@
 --- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
 --- @return nil
 return function(capabilities)
-	vim.lsp.config('lua_ls', {
+	vim.lsp.config("lua_ls", {
 		capabilities = capabilities,
 		settings = {
 			Lua = {
