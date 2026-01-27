@@ -1,3 +1,5 @@
+-- WARN: These keymaps are here so they only apply when the LSP attaches and don't clutter otherwise.
+
 local M = {}
 
 M.on_attach = function(event)
@@ -6,36 +8,98 @@ M.on_attach = function(event)
 		return
 	end
 	local bufnr = event.buf
-	local keymap = vim.keymap.set
-	local opts = {
-		noremap = true, -- prevent recursive mapping
-		silent = true, -- don't print the command to the cli
-		buffer = bufnr, -- restrict the keymap to the local buffer number
-	}
+	local keymap = function(mode, lhs, rhs, opts)
+		vim.keymap.set(
+			mode,
+			lhs,
+			rhs,
+			vim.tbl_extend("keep", opts, {
+				noremap = true, -- prevent recursive mapping
+				silent = true, -- don't print the command to the cli
+				buffer = bufnr, -- restrict the keymap to the local buffer number
+			})
+		)
+	end
 
-	-- native neovim keymaps
-	keymap("n", "<leader>gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- goto definition
-	keymap("n", "<leader>gD", "<cmd>Lspsaga goto_definition<CR>", opts) -- goto definition
-	keymap("n", "<leader>gS", "<cmd>vsplit | Lspsaga goto_definition<CR>", opts) -- goto definition in split
-	keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts) -- Code actions
-	keymap("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts) -- Rename symbol
-	keymap("n", "<leader>D", "<cmd>Lspsaga show_line_diagnostics<CR>", opts) -- Line diagnostics (float)
-	keymap("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- Cursor diagnostics
-	keymap("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- previous diagnostic
-	keymap("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- next diagnostic
-	keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- hover documentation
+	-- Rename the variable under the cursor.
+	--  Most Language Servers support renaming across files, etc.
+	keymap("n", "<leader>r", vim.lsp.buf.rename, { desc = "Rename" })
+	keymap("n", "<leader>lR", vim.lsp.buf.rename, { desc = "Rename" })
 
-	-- fzf-lua keymaps
-	keymap("n", "<leader>fd", "<cmd>FzfLua lsp_finder<CR>", opts) -- LSP Finder (definition + references)
-	keymap("n", "<leader>fr", "<cmd>FzfLua lsp_references<CR>", opts) -- Show all references to the symbol under the cursor
-	keymap("n", "<leader>ft", "<cmd>FzfLua lsp_typedefs<CR>", opts) -- Jump to the type definition of the symbol under the cursor
-	keymap("n", "<leader>fs", "<cmd>FzfLua lsp_document_symbols<CR>", opts) -- List all symbols (functions, classes, etc.) in the current file
-	keymap("n", "<leader>fw", "<cmd>FzfLua lsp_workspace_symbols<CR>", opts) -- Search for any symbol across the entire project/workspace
-	keymap("n", "<leader>fi", "<cmd>FzfLua lsp_implementations<CR>", opts) -- Go to implementation
+	-- A combination of many of the keymaps below.
+	keymap("n", "<leader>lf", "<cmd>FzfLua lsp_finder<CR>", { desc = "Finder (definition, references, ...)" })
+
+	-- Jump to the definition of the word under the cursor. This is where
+	--  a variable was first declared, or where a function is defined, etc.
+	keymap("n", "<leader>ld", "<cmd>FzfLua lsp_definitions<CR>", { desc = "Definition" })
+
+	-- Find references for the word under the cursor.
+	keymap("n", "<leader>lr", "<cmd>FzfLua lsp_references<CR>", { desc = "References" })
+
+	-- Jump to the implementation of the word under the cursor.
+	-- Useful when the language has ways of declaring types without an actual implementation.
+	keymap("n", "<leader>li", "<cmd>FzfLua lsp_implementations<CR>", { desc = "Implementations" })
+
+	-- Jump to the type of the word under the cursor
+	-- Useful when I'm not sure what type a variable is and I want to see
+	--  the definition of its type, not where it was defined.
+	keymap("n", "<leader>lt", "<cmd>FzfLua lsp_typedefs<CR>", { desc = "Type definitions" })
+
+	-- Fuzzy find all the symbols in the current document.
+	--  Symbols are things like variables, functions, types, etc.
+	keymap("n", "<leader>ls", "<cmd>FzfLua lsp_document_symbols<CR>", { desc = "Document symbols" })
+
+	-- Fuzzy find all the symbols in the current workspace.
+	--  Similar to document symbols, except it searches over the entire project.
+	keymap("n", "<leader>lS", "<cmd>FzfLua lsp_workspace_symbols<CR>", { desc = "Workspace symbols" })
+
+	-- Execute a code action (to fix an error or other). Usually the cursor needs to be on top of an
+	--  error or a suggestion from the LSP for this to activate.
+	keymap("n", "<leader>la", "<cmd>FzfLua lsp_code_actions<CR>", { desc = "Code action" })
+
+	--  In C this would take me to the header
+	keymap("n", "<leader>lD", "<cmd>FzfLua lsp_declarations<CR>", { desc = "Declarations" })
+
+	-- Diagnostics
+	keymap("n", "[d", function()
+		vim.diagnostic.jump({ count = -1, float = true })
+	end, { desc = "Previous diagnostic" })
+	keymap("n", "]d", function()
+		vim.diagnostic.jump({ count = 1, float = true })
+	end, { desc = "Next diagnostic" })
+	keymap("n", "<leader>xx", function()
+		vim.diagnostic.open_float({ scope = "cursor" })
+	end, { desc = "Cursor diagnostics" })
+	keymap("n", "<leader>xX", function()
+		vim.diagnostic.open_float({ scope = "line" })
+	end, { desc = "Line diagnostics" })
+	keymap("n", "<leader>tv", require("utils.diagnostics").toggle_virtual_lines, { desc = "Diagnostic virtual lines" })
+	keymap("n", "<leader>xs", function()
+		require("fzf-lua").diagnostics_document()
+	end, { desc = "Search document diagnostics" })
+	keymap("n", "<leader>xS", function()
+		require("fzf-lua").diagnostics_workspace()
+	end, { desc = "Search workspace diagnostics" })
+
+	-- Toggles
+	keymap("n", "<leader>tx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer diagnostics" })
+	keymap("n", "<leader>tX", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Workspace diagnostics" })
+	keymap(
+		"n",
+		"<leader>ts",
+		"<cmd>Trouble lsp_document_symbols toggle focus=false multiline=false win.position=right<cr>",
+		{ desc = "LSP Document Symbols" }
+	)
+	keymap(
+		"n",
+		"<leader>tl",
+		"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+		{ desc = "LSP definitions, references, ..." }
+	)
 
 	-- Order Imports (if supported by the client LSP)
 	if client:supports_method("textDocument/codeAction", bufnr) then
-		keymap("n", "<leader>oi", function()
+		keymap("n", "<leader>lo", function()
 			vim.lsp.buf.code_action({
 				context = {
 					only = { "source.organizeImports" },
@@ -48,18 +112,17 @@ M.on_attach = function(event)
 			vim.defer_fn(function()
 				vim.lsp.buf.format({ bufnr = bufnr })
 			end, 50) -- slight delay to allow for the import order to go first
-		end, opts)
+		end, { desc = "Organize imports" })
 	end
 
-	-- === DAP keymaps ===
-	if client.name == "rust-analyzer" then -- debugging only configured for Rust
-		local dap = require("dap")
-		keymap("n", "<leader>dc", dap.continue, opts) -- Continue / Start
-		keymap("n", "<leader>do", dap.step_over, opts) -- Step over
-		keymap("n", "<leader>di", dap.step_into, opts) -- Step into
-		keymap("n", "<leader>du", dap.step_out, opts) -- Step out
-		keymap("n", "<leader>db", dap.toggle_breakpoint, opts) -- Toggle breakpoint
-		keymap("n", "<leader>dr", dap.repl.open, opts) -- Open DAP REPL
+	-- The following autocommand is used to toggle inlay hints in the
+	--  code, if the language server I am using supports them.
+	-- This may be unwanted, since they displace some of the code.
+	if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+		-- vim.lsp.inlay_hint.enable()
+		keymap("n", "<leader>th", function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+		end, { desc = "Inlay hints" })
 	end
 end
 

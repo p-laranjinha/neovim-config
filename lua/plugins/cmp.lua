@@ -52,6 +52,19 @@ return {
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
 				["<C-Space>"] = cmp.mapping.complete(), -- Manually trigger autocompletion
 				["<C-e>"] = cmp.mapping.abort(),
+
+				-- If autocompletion has fields to fill in, use these keymaps to move between them.
+				-- <c-l> will move me to the right of each of the expansion locations and <c-h> will move me left.
+				["<C-l>"] = cmp.mapping(function()
+					if luasnip.expand_or_locally_jumpable() then
+						luasnip.expand_or_jump()
+					end
+				end, { "i", "s" }),
+				["<C-h>"] = cmp.mapping(function()
+					if luasnip.locally_jumpable(-1) then
+						luasnip.jump(-1)
+					end
+				end, { "i", "s" }),
 			}),
 
 			sources = {
