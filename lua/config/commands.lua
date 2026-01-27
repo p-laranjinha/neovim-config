@@ -1,7 +1,11 @@
 local write_without_formatting = function(bang)
-	vim.g.disable_autoformatting = true
-	vim.cmd.write({ bang = bang })
-	vim.g.disable_autoformatting = false
+	if not vim.g.autoformat then
+		vim.cmd.write({ bang = bang })
+	else
+		vim.g.autoformat = false
+		vim.cmd.write({ bang = bang })
+		vim.g.autoformat = true
+	end
 end
 vim.api.nvim_create_user_command("W", function(table)
 	write_without_formatting(table.bang)

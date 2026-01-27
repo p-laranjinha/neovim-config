@@ -179,6 +179,11 @@ keymap({ "o", "x" }, "ag", "<cmd>Gitsigns select_hunk<CR>", { desc = "Git hunk" 
 --== markview
 keymap("n", "<leader>tm", "<cmd>Markview<CR>", { desc = "Markview" })
 
+--== Custom
+keymap("n", "<leader>tf", function()
+	vim.g.autoformat = not vim.g.autoformat
+end, { desc = "Formatting on save" })
+
 --== Extras
 keymap("n", "<leader>+q", ":cdo ", {
 	desc = "[:cdo ] Do something for each quickfix item, like 's/' (use '/gc' flags as 'c' asks you every item if it is to apply)",

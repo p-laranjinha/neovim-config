@@ -54,20 +54,4 @@ return function(capabilities)
 			languages = languages,
 		},
 	})
-
-	-- format on save using efm langserver and configured formatters
-	local lsp_fmt_group = vim.api.nvim_create_augroup("FormatOnSaveGroup", {})
-	vim.api.nvim_create_autocmd("BufWritePre", {
-		group = lsp_fmt_group,
-		callback = function()
-			local efm = vim.lsp.get_clients({ name = "efm" })
-			if vim.tbl_isempty(efm) then
-				return
-			end
-			if not vim.g.disable_autoformatting then
-				-- async=true causes the file to not be saved after the format
-				vim.lsp.buf.format({ name = "efm", async = false })
-			end
-		end,
-	})
 end
