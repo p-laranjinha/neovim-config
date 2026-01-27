@@ -13,6 +13,8 @@ return {
 			-- Set it to the lualine section you want to use
 			hl_group = "lualine_c_normal",
 		})
+		-- See the default config here:
+		-- https://github.com/nvim-lualine/lualine.nvim?tab=readme-ov-file#default-configuration
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
@@ -22,8 +24,34 @@ return {
 				"nvim-tree",
 			},
 			sections = {
+				lualine_b = {
+					"branch",
+					{
+						"diff",
+						symbols = {
+							added = " ",
+							modified = " ",
+							removed = " ",
+						},
+					},
+					{
+						"diagnostics",
+						symbols = {
+							error = " ",
+							warn = " ",
+							info = " ",
+							hint = " ",
+						},
+					},
+				},
+				-- Putting "filename" on the right so it's always visible even with too many symbols.
 				lualine_c = {
-					"filename",
+					{
+						"filename",
+						cond = function()
+							return not (symbols.has() and (vim.b.has_lsp == true))
+						end,
+					},
 					{
 						symbols.get,
 						cond = function()
@@ -31,6 +59,16 @@ return {
 						end,
 					},
 				},
+				lualine_x = {
+					{
+						"filename",
+						cond = function()
+							return symbols.has() and (vim.b.has_lsp == true)
+						end,
+					},
+				},
+				lualine_y = { "encoding", "fileformat", "filetype" },
+				lualine_z = { "progress", "location" },
 			},
 		})
 	end,
