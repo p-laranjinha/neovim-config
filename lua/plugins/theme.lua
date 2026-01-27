@@ -4,9 +4,8 @@ return {
 		lazy = false, -- Don't lazy load.
 		priority = 999, -- One of the first to be loaded.
 		config = function()
-			-- load duskfox palette
+			-- TODO: Look into making nvim and the terminal transparent.
 			local palette = require("nightfox.palette").load("carbonfox")
-
 			require("nightfox").setup({
 				-- options = {
 				--     transparent = true,
@@ -32,4 +31,5 @@ return {
 	"Shatur/neovim-ayu",
 	"Mofiqul/vscode.nvim",
 	{ "catppuccin/nvim", name = "catppuccin" },
+	{ "rose-pine/neovim", name = "rose-pine" },
 }

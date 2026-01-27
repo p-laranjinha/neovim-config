@@ -93,9 +93,11 @@ keymap("n", "<leader>stt", function()
 end, { desc = "To do and fix" })
 keymap("n", "<leader>sta", "<cmd>TodoFzfLua<CR>", { desc = "All" })
 keymap("n", "<leader>ttt", function()
-	require("trouble").open({ mode = "todo", filter = { tag = to_fix_keywords } })
+	require("trouble").toggle({ mode = "todo", filter = { tag = to_fix_keywords } })
 end, { desc = "To do and fix" })
-keymap("n", "<leader>tta", "<cmd>TodoTrouble<CR>", { desc = "All" })
+keymap("n", "<leader>tta", function()
+	require("trouble").toggle("todo")
+end, { desc = "All" })
 
 -- Jumps to TODOs, these replace tab jumps but I don't use tabs.
 -- Doesn't work across files, but neither does diagnostics, so if I want that just use quickfix.
