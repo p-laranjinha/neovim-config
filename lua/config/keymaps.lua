@@ -49,6 +49,9 @@ vim.keymap.del("n", "]d")
 vim.keymap.del("n", "[D")
 vim.keymap.del("n", "]D")
 
+-- Toggle line wrap
+keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Line wrap" })
+
 --== which-key
 
 -- Show global which-key keymaps.
@@ -69,8 +72,8 @@ keymap("n", "<leader>w", function()
 end, { desc = "+Window" })
 
 --== nvim-tree
-keymap("n", "<leader>tT", "<Cmd>NvimTreeFindFileToggle<CR>", { desc = "Tree (File Explorer)" })
-keymap("n", "<leader>e", "<Cmd>NvimTreeFindFileToggle<CR>", { desc = "Tree (File Explorer)" })
+keymap("n", "<leader>tT", "<Cmd>NvimTreeFindFileToggle<CR>", { desc = "File explorer (Tree)" })
+keymap("n", "<leader>e", "<Cmd>NvimTreeFindFileToggle<CR>", { desc = "File explorer (Tree)" })
 
 --== undotree
 keymap("n", "<leader>tu", function()
@@ -273,6 +276,86 @@ keymap("n", "<leader>xS", function()
 end, { desc = "Search workspace diagnostics" })
 keymap("n", "<leader>tx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer diagnostics" })
 keymap("n", "<leader>tX", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Workspace diagnostics" })
+
+--== DAP
+keymap("n", "<leader>dB", function()
+	require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end, { desc = "Set breakpoint condition" })
+keymap("n", "<leader>db", function()
+	require("dap").toggle_breakpoint()
+end, { desc = "Toggle breakpoint" })
+keymap("n", "<leader>dc", function()
+	require("dap").continue()
+end, { desc = "Run/Continue" })
+keymap("n", "<leader>da", function()
+	require("dap").continue({
+		before = function(config)
+			local args = type(config.args) == "function" and (config.args() or {}) or config.args or {}
+			local args_str = type(args) == "table" and table.concat(args, " ") or args --[[@as string]]
+
+			config = vim.deepcopy(config)
+			config.args = function()
+				local new_args = vim.fn.expand(vim.fn.input("Run with args: ", args_str))
+				if config.type and config.type == "java" then
+					return new_args
+				end
+				return require("dap.utils").splitstr(new_args)
+			end
+			return config
+		end,
+	})
+end, { desc = "Run with args" })
+keymap("n", "<leader>dC", function()
+	require("dap").run_to_cursor()
+end, { desc = "Run to cursor" })
+keymap("n", "<leader>dg", function()
+	require("dap").goto_()
+end, { desc = "Go to line (no execution)" })
+keymap("n", "<leader>dj", function()
+	require("dap").down()
+end, { desc = "Down stack without stepping" })
+keymap("n", "<leader>dk", function()
+	require("dap").up()
+end, { desc = "Up stack without stepping" })
+keymap("n", "<leader>dl", function()
+	require("dap").run_last()
+end, { desc = "Repeat last run" })
+keymap("n", "<leader>di", function()
+	require("dap").step_into()
+end, { desc = "Step into" })
+keymap("n", "]d", function()
+	require("dap").step_into()
+end, { desc = "Step into (debug)" })
+keymap("n", "<leader>do", function()
+	require("dap").step_over()
+end, { desc = "Step over" })
+keymap("n", "]D", function()
+	require("dap").step_over()
+end, { desc = "Step over (debug)" })
+keymap("n", "<leader>dO", function()
+	require("dap").step_out()
+end, { desc = "Step out" })
+keymap("n", "[d", function()
+	require("dap").step_out()
+end, { desc = "Step out (debug)" })
+keymap("n", "<leader>dp", function()
+	require("dap").pause()
+end, { desc = "Pause" })
+keymap("n", "<leader>dr", function()
+	require("dap").repl.toggle()
+end, { desc = "Toggle REPL" })
+keymap("n", "<leader>dt", function()
+	require("dap").terminate()
+end, { desc = "Terminate" })
+keymap("n", "<leader>du", function()
+	require("dapui").toggle({})
+end, { desc = "Dap UI" })
+keymap("n", "<leader>dw", function()
+	require("dapui").elements.watches.add()
+end, { desc = "Watch symbol on cursor" })
+keymap({ "n", "x" }, "<leader>de", function()
+	require("dapui").eval()
+end, { desc = "Eval symbol on cursor" })
 
 --== Extras
 keymap("n", "<leader>+q", ":cdo ", {

@@ -20,3 +20,14 @@ vim.api.nvim_create_user_command("Wq", function(table)
 end, {
 	bang = true,
 })
+vim.api.nvim_create_user_command("WQ", function(table)
+	write_without_formatting(table.bang)
+	vim.cmd.quit({ bang = table.bang })
+end, {
+	bang = true,
+})
+vim.api.nvim_create_user_command("Q", function(table)
+	vim.cmd.quit({ bang = table.bang })
+end, {
+	bang = true,
+})

@@ -22,6 +22,7 @@ return {
 			extensions = {
 				"trouble",
 				"nvim-tree",
+				"nvim-dap-ui",
 			},
 			sections = {
 				lualine_b = {
