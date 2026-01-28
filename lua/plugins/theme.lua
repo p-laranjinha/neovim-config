@@ -4,17 +4,15 @@ return {
 		lazy = false, -- Don't lazy load.
 		priority = 999, -- One of the first to be loaded.
 		config = function()
-			-- TODO: Look into making nvim and the terminal transparent.
-			local palette = require("nightfox.palette").load("carbonfox")
 			require("nightfox").setup({
-				-- options = {
-				--     transparent = true,
-				-- },
-				-- groups = {
-				--     carbonfox = {
-				--         Visual = { bg = palette.bg1 },
-				--     },
-				-- },
+				-- TODO: Look into making nvim and the terminal transparent.
+				-- options = { transparent = true, },
+				-- groups = { carbonfox = { Visual = { bg = "palette.bg1" }, }, },
+				groups = {
+					carbonfox = {
+						WinSeparator = { fg = "palette.bg0", bg = "palette.bg0" },
+					},
+				},
 			})
 			vim.cmd("colorscheme carbonfox")
 		end,
