@@ -12,9 +12,6 @@ return {
 				dotfiles = false, -- Show hidden files (dotfiles)
 				git_ignored = false, -- Show files in .gitignore. Hide them with 'I'.
 			},
-			view = {
-				adaptive_size = true,
-			},
 			renderer = {
 				root_folder_label = function()
 					return ".."
