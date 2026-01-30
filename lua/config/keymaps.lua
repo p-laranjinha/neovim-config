@@ -213,7 +213,14 @@ keymap("n", "<leader>\\p", "<cmd>AutoSession purgeOrphaned<CR>", { desc = "Purge
 --== Search
 keymap("n", "<leader>ss", "<cmd>FzfLua builtin<CR>", { desc = "..." }) -- All FzfLua options
 keymap("n", "<leader>sr", "<cmd>FzfLua resume<CR>", { desc = "Resume search" })
-keymap("n", "<leader>sf", "<cmd>FzfLua files<CR>", { desc = "Files" })
+keymap("n", "<leader>sf", function()
+	require("fzf-lua").files({
+		-- Remove git submodules from search results.
+		-- Default value:
+		--  https://github.com/ibhagwan/fzf-lua/blob/d59f857c76eb474ec00debcf043f14fd001805cc/lua/fzf-lua/defaults.lua#L523
+		fd_opts = [[--color=never --type f --type l --exclude .git $(git config --file .gitmodules --get-regexp path | awk 'BEGIN { ORS=" " }; { print "--exclude " $2 }')]],
+	})
+end, { desc = "Files" })
 keymap("n", "<leader>sn", function()
 	require("fzf-lua").files({
 		cwd = vim.fn.stdpath("config"),
@@ -225,7 +232,7 @@ keymap("n", "<leader>si", function()
 		--  https://github.com/ibhagwan/fzf-lua/blob/d59f857c76eb474ec00debcf043f14fd001805cc/lua/fzf-lua/defaults.lua#L523
 		fd_opts = [[--color=never --type f --type l --exclude .git --no-ignore]],
 	})
-end, { desc = "Files (including in .gitignore)" })
+end, { desc = "Files (including ignored)" })
 keymap("n", "<leader>so", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
 keymap("n", "<leader>sg", "<cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
 keymap("n", "<leader>s/", "<cmd>FzfLua lgrep_curbuf<CR>", { desc = "Live grep current buffer" })
