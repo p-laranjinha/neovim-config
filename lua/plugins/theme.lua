@@ -13,6 +13,13 @@ return {
 						WinSeparator = { fg = "palette.bg0", bg = "palette.bg0" },
 					},
 				},
+				palettes = {
+					carbonfox = {
+						-- terafox orange and nordfox yellow because in carbonfox they are cyan
+						yellow = "#ebcb8b",
+						orange = "#ff8349",
+					},
+				},
 			})
 			vim.cmd("colorscheme carbonfox")
 		end,

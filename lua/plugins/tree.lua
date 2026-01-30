@@ -3,6 +3,7 @@
 return {
 	"nvim-tree/nvim-tree.lua",
 	lazy = false,
+	dependencies = { "echasnovski/mini.icons" },
 	config = function()
 		-- Remove background color from the NvimTree window (ui fix)
 		-- vim.cmd([[hi NvimTreeNormal guibg=NONE ctermbg=NONE]])

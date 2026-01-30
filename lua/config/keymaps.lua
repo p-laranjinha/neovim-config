@@ -189,16 +189,18 @@ end, { desc = "All" })
 
 -- Jumps to TODOs, these replace tab jumps but I don't use tabs.
 -- Doesn't work across files, but neither does diagnostics, so if I want that just use quickfix.
-vim.keymap.set("n", "]t", function()
+keymap("n", "]t", function()
 	require("todo-comments").jump_next({ keywords = to_fix_keywords })
-end, { desc = "Todo" })
-vim.keymap.set("n", "[t", function()
+end, { desc = "Next todo" })
+keymap("n", "[t", function()
 	require("todo-comments").jump_prev({ keywords = to_fix_keywords })
-end, { desc = "Todo" })
+end, { desc = "Previous todo" })
+vim.keymap.del("n", "]T")
+vim.keymap.del("n", "[T")
 
 --== auto-session
-keymap("n", "<leader>\\s", "<cmd>AutoSession search<CR>", { desc = "Search" })
-keymap("n", "<leader>\\w", "<cmd>AutoSession save<CR>", { desc = "Save" })
+keymap("n", "<leader>\\\\", "<cmd>AutoSession search<CR>", { desc = "Search" })
+keymap("n", "<leader>\\s", "<cmd>AutoSession save<CR>", { desc = "Save" })
 keymap("n", "<leader>\\r", "<cmd>AutoSession restore<CR>", { desc = "Restore" })
 keymap("n", "<leader>\\d", "<cmd>AutoSession delete<CR>", { desc = "Delete" })
 keymap("n", "<leader>\\D", "<cmd>AutoSession deletePicker<CR>", { desc = "Delete picker" })
@@ -227,9 +229,9 @@ keymap("n", "<leader>s/", "<cmd>FzfLua lgrep_curbuf<CR>", { desc = "Live grep cu
 keymap("n", "<leader>sw", "<cmd>FzfLua grep_cword<CR>", { desc = "Grep word on cursor" })
 keymap("n", "<leader>sb", "<cmd>FzfLua buffers<CR>", { desc = "Buffers" })
 keymap("n", "<leader>sh", "<cmd>FzfLua helptags<CR>", { desc = "Help" })
-keymap("n", "<leader>sc", "<cmd>FzfLua commands<CR>", { desc = "Commands" })
-keymap("n", "<leader>sC", "<cmd>FzfLua command_history<CR>", { desc = "Command history" })
-keymap("n", "<leader>sk", "<cmd>FzfLua keymaps<CR>", { desc = "Keymaps" })
+keymap("n", "<leader>sc", "<cmd>FzfLua command_history<CR>", { desc = "Command history" })
+keymap("n", "<leader>sd", "<cmd>FzfLua dap_breakpoints<CR>", { desc = "Debug breakpoints" })
+keymap("n", "<leader>sq", "<cmd>FzfLua quickfix<CR>", { desc = "Quickfix list" })
 
 keymap("n", "<leader>f", "<cmd>FzfLua filetypes<CR>", { desc = "Select file type" })
 
@@ -239,11 +241,40 @@ keymap("n", "<leader>tq", "<cmd>Trouble qflist toggle<CR>", { desc = "Quickfix l
 -- Basically a single file quickfix list.
 -- keymap("n", "<leader>tl", "<cmd>Trouble loclist toggle<CR>", { desc = "Location list" })
 
+--== markview
+keymap("n", "<leader>tm", "<cmd>Markview<CR>", { desc = "Markview" })
+
+--== harpoon
+keymap("n", "<leader><leader>h", function()
+	require("harpoon"):list():select(1)
+end, { desc = "Select 1" })
+keymap("n", "<leader><leader>j", function()
+	require("harpoon"):list():select(2)
+end, { desc = "Select 2" })
+keymap("n", "<leader><leader>k", function()
+	require("harpoon"):list():select(3)
+end, { desc = "Select 3" })
+keymap("n", "<leader><leader>l", function()
+	require("harpoon"):list():select(4)
+end, { desc = "Select 4" })
+keymap("n", "<leader><leader>n", function()
+	require("harpoon"):list():next()
+end, { desc = "Select next" })
+keymap("n", "<leader><leader>p", function()
+	require("harpoon"):list():prev()
+end, { desc = "Select previous" })
+keymap("n", "<leader><leader>a", function()
+	require("harpoon"):list():add()
+end, { desc = "Add" })
+keymap("n", "<leader><leader><leader>", function()
+	require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
+end, { desc = "Open list" })
+
 --== Git
 keymap("n", "]g", "<cmd>Gitsigns nav_hunk next<CR>", { desc = "Next git hunk" })
 keymap("n", "<leader>gn", "<cmd>Gitsigns nav_hunk next<CR>", { desc = "']g' Next hunk" })
-keymap("n", "[g", "<cmd>Gitsigns nav_hunk prev<CR>", { desc = "Prev git hunk" })
-keymap("n", "<leader>gp", "<cmd>Gitsigns nav_hunk prev<CR>", { desc = "'[g' Prev hunk" })
+keymap("n", "[g", "<cmd>Gitsigns nav_hunk prev<CR>", { desc = "Previous git hunk" })
+keymap("n", "<leader>gp", "<cmd>Gitsigns nav_hunk prev<CR>", { desc = "'[g' Previous hunk" })
 keymap("n", "]G", "<cmd>Gitsigns nav_hunk last<CR>", { desc = "Last git hunk" })
 keymap("n", "<leader>gN", "<cmd>Gitsigns nav_hunk Last<CR>", { desc = "']G' Last hunk" })
 keymap("n", "[G", "<cmd>Gitsigns nav_hunk first<CR>", { desc = "First git hunk" })
@@ -268,9 +299,6 @@ keymap("n", "<leader>gtb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc
 
 keymap({ "o", "x" }, "ig", "<cmd>Gitsigns select_hunk<CR>", { desc = "Git hunk" })
 keymap({ "o", "x" }, "ag", "<cmd>Gitsigns select_hunk<CR>", { desc = "Git hunk" })
-
---== markview
-keymap("n", "<leader>tm", "<cmd>Markview<CR>", { desc = "Markview" })
 
 --== LSP
 
@@ -336,10 +364,10 @@ end, { desc = "Formatting on save" })
 --== Diagnostics
 keymap("n", "[x", function()
 	vim.diagnostic.jump({ count = -1, float = true })
-end, { desc = "Diagnostic" })
+end, { desc = "Previous diagnostic" })
 keymap("n", "]x", function()
 	vim.diagnostic.jump({ count = 1, float = true })
-end, { desc = "Diagnostic" })
+end, { desc = "Next diagnostic" })
 keymap("n", "[X", function()
 	vim.diagnostic.jump({ count = -999, float = true })
 end, { desc = "First diagnostic" })
@@ -450,13 +478,70 @@ keymap({ "n", "x" }, "<leader>de", function()
 	require("dapui").eval()
 end, { desc = "Eval symbol on cursor" })
 
+--== Testing
+
+keymap("n", "<leader>Tf", function()
+	require("neotest").run.run(vim.fn.expand("%"))
+end, { desc = "Run file" })
+keymap("n", "<leader>TF", function()
+	require("neotest").run.run(vim.uv.cwd())
+end, { desc = "Run all test files" })
+keymap("n", "<leader>Tn", function()
+	require("neotest").run.run()
+end, { desc = "Run nearest" })
+keymap("n", "<leader>Td", function()
+	require("neotest").run.run({ strategy = "dap" })
+end, { desc = "Debug nearest" })
+keymap("n", "<leader>Tl", function()
+	require("neotest").run.run_last()
+end, { desc = "Rerun last" })
+keymap("n", "<leader>Ts", function()
+	require("neotest").run.stop()
+end, { desc = "Stop" })
+
+keymap("n", "<leader>Ta", function()
+	require("neotest").run.attach()
+end, { desc = "Attach to test" })
+
+keymap("n", "<leader>To", function()
+	require("neotest").output.open({ enter = true, auto_close = true })
+end, { desc = "Show output" })
+
+keymap("n", "<leader>Tts", function()
+	require("neotest").summary.toggle()
+end, { desc = "Summary" })
+keymap("n", "<leader>Tto", function()
+	require("neotest").output_panel.toggle()
+end, { desc = "Output" })
+keymap("n", "<leader>Ttw", function()
+	require("neotest").watch.toggle(vim.fn.expand("%"))
+end, { desc = "Watch file" })
+keymap("n", "<leader>Ttx", function()
+	require("neotest").diagnostic()
+end, { desc = "Display errors in diagnostics" })
+keymap("n", "<leader>TtS", function()
+	require("neotest").status()
+end, { desc = "Signcolumn signs" })
+
 --== Extras
 keymap("n", "<leader>+q", ":cdo ", {
 	desc = "[:cdo ] Do something for each quickfix item, like 's/' (use '/gc' flags as 'c' asks you every item if it is to apply)",
 })
 keymap("n", "<leader>+:", "q: ", {
-	desc = "[q:] Open cmd window where you can see the history and use modes (insert, visual, ...). Open window in regular cmd with <C-f>.",
+	desc = "[q:] Open cmd window where you can see the history and use modes (insert, visual, ...). Open window in regular cmd with <C-f>",
 })
 keymap("n", "<leader>+w", "<cmd>W<CR>", {
-	desc = "[:W] Custom command to save without formatting.",
+	desc = "[:W] Custom command to save without formatting",
+})
+keymap("n", "<leader>+i", "<C-i>", {
+	desc = "[<C-i>] Jump to next cursor position",
+})
+keymap("n", "<leader>+o", "<C-o>", {
+	desc = "[<C-o>] Jump to last cursor position",
+})
+keymap("n", "<leader>+n", "<cmd>ene<CR>", {
+	desc = "[:ene] Edit new and unnamed buffer",
+})
+keymap("n", "<leader>+m", "<cmd>marks<CR>", {
+	desc = "[:marks] Show marks, use [m*] to add a mark to * and [`*]/['*] to go to the mark at the cursor/line",
 })

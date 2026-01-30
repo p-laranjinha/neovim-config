@@ -4,7 +4,7 @@ return {
 	config = function()
 		require("markview").setup({
 			preview = {
-				icon_provider = "devicons",
+				icon_provider = "mini",
 			},
 		})
 	end,

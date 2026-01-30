@@ -73,5 +73,5 @@ return {
 			},
 		})
 	end,
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	dependencies = { "echasnovski/mini.icons" },
 }

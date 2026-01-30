@@ -18,4 +18,14 @@ return {
 	{ "echasnovski/mini.bufremove", version = "*", opts = {} },
 	-- Prettier notifications.
 	{ "echasnovski/mini.notify", version = "*", opts = {} },
+	-- Icons for other plugins + colors for which-key.
+	{
+		"echasnovski/mini.icons",
+		version = "*",
+		opts = {},
+		config = function()
+			-- To add icons to nvim-tree.
+			require("mini.icons").mock_nvim_web_devicons()
+		end,
+	},
 }
