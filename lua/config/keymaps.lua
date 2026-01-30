@@ -7,9 +7,6 @@
 -- INFO: For nvim-tree buffer-local keymaps go to: ../plugins/tree.lua
 -- INFO: For completion (cmp) mappings go to: ../plugins/cmp.lua
 
--- TODO: Add commands (and group) to change settings like indent size or file type.
---  Maybe use "<leader>c" with desc "Change".
-
 local keymap = vim.keymap.set
 
 --== Native Neovim keymaps
@@ -242,8 +239,6 @@ keymap("n", "<leader>sh", "<cmd>FzfLua helptags<CR>", { desc = "Help" })
 keymap("n", "<leader>sc", "<cmd>FzfLua command_history<CR>", { desc = "Command history" })
 keymap("n", "<leader>sd", "<cmd>FzfLua dap_breakpoints<CR>", { desc = "Debug breakpoints" })
 keymap("n", "<leader>sq", "<cmd>FzfLua quickfix<CR>", { desc = "Quickfix list" })
-
-keymap("n", "<leader>f", "<cmd>FzfLua filetypes<CR>", { desc = "Select file type" })
 
 --== Trouble
 keymap("n", "<leader>tq", "<cmd>Trouble qflist toggle<CR>", { desc = "Quickfix list" })
@@ -532,6 +527,15 @@ end, { desc = "Display errors in diagnostics" })
 keymap("n", "<leader>TtS", function()
 	require("neotest").status()
 end, { desc = "Signcolumn signs" })
+
+--== Change
+keymap(
+	"n",
+	"<leader>ct",
+	":set tabstop=",
+	{ desc = "How many spaces a tab is represented by, and the number of spaces pressing tab writes" }
+)
+keymap("n", "<leader>cf", "<cmd>FzfLua filetypes<CR>", { desc = "File type" })
 
 --== Extras
 keymap("n", "<leader>+q", ":cdo ", {

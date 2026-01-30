@@ -38,7 +38,6 @@ return {
 			{ "<leader>P", icon = { icon = "󰆒", color = "grey" } },
 			{ "<leader>r", icon = { icon = "󰑕", color = "grey" } },
 			{ "<leader>u", icon = { icon = "", color = "yellow" } },
-			{ "<leader>f", icon = { icon = "󰈮", color = "green" } },
 			{ "<leader>e", icon = { icon = "", color = "yellow" } },
 			{ "<leader>n", icon = { icon = "󰵅", color = "green" } },
 			{ "]t", icon = { icon = "󰷐", color = "grey" } },
@@ -250,6 +249,11 @@ return {
 			{ "<leader>Tts", icon = { icon = "", color = "cyan" } },
 			{ "<leader>TtS", icon = { icon = "", color = "green" } },
 			{ "<leader>Ttw", icon = { icon = "󰈈", color = "grey" } },
+
+			-- Change
+			{ "<leader>c", group = "Change", icon = { icon = "", color = "green" } },
+			{ "<leader>cf", icon = { icon = "󰈮", color = "green" } },
+			{ "<leader>ct", icon = { icon = "󰌒", color = "green" } },
 		})
 	end,
 }

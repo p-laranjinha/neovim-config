@@ -13,7 +13,7 @@ vim.opt.spelllang = { "en", "pt" } -- Set language for spellchecking
 
 -- Tabbing / Indentation
 vim.opt.tabstop = 2 -- Tab width
-vim.opt.shiftwidth = 2 -- Indent width
+vim.opt.shiftwidth = 0 -- How many spaces pressing tab inserts. 0 means same as tabstop.
 vim.opt.softtabstop = 2 -- Soft tab stop
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.smartindent = true -- Smart auto-indenting
