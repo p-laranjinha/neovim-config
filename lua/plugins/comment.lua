@@ -1,7 +1,2 @@
--- Shortcuts to comment lines and blocks.
-return {
-	{
-		"numToStr/Comment.nvim",
-		opts = {},
-	},
-}
+-- Better commenting shortcuts.
+return { "numToStr/Comment.nvim", opts = {} }

@@ -1,41 +1,65 @@
--- Highlight, edit, and navigate code.
 return {
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		opts = {
-			ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
-			-- Autoinstall languages that are not installed.
-			auto_install = true,
-			highlight = {
-				enable = true,
-				-- Some languages depend on vim's regex highlighting system
-				--  (such as Ruby) for indent rules.
-				-- If I am experiencing weird indenting issues, add the
-				--  language to the list of additional_vim_regex_highlighting
-				--  and disabled languages for indent.
-				additional_vim_regex_highlighting = { "ruby" },
-			},
-			indent = { enable = true, disable = { "ruby" } },
+	"nvim-treesitter/nvim-treesitter",
+	branch = "main",
+	build = ":TSUpdate",
+	lazy = false,
+	config = function()
+		require("nvim-treesitter").install({
+			"lua",
+			"luadoc",
+			"vim",
+			"vimdoc",
+			"nix",
+			"bash",
+			"c",
+			"cpp",
+			"css",
+			"dockerfile",
+			"go",
+			"html",
+			"javascript",
+			"markdown",
+			"markdown_inline",
+			"python",
+			"rust",
+			"svelte",
+			"typescript",
+			"vue",
+			"yaml",
+			"json",
+			"toml",
+			"diff",
+		})
+		-- So treesitter has had a massive revamp and removed a bunch of features so that they
+		--  become just the foundation for the features and is therefore easier to maintain.
+		-- Use https://github.com/MeanderingProgrammer/treesitter-modules.nvim#implementing-yourself
+		--  and the treesitter repo learn more about how to implement these features.
+		vim.api.nvim_create_autocmd("FileType", {
+			group = vim.api.nvim_create_augroup("treesitter.setup", {}),
+			callback = function(args)
+				local buf = args.buf
+				local filetype = args.match
 
-			-- Allows for shortcuts to select incrementally bigger scopes in
-			--  visual mode with "grn", "grc" and "grm".
-			--incremental_selection = { enable = true },
-		},
-		config = function(_, opts)
-			-- Prefer git instead of curl in order to improve connectivity in
-			--  some environments.
-			require("nvim-treesitter.install").prefer_git = true
-			---@diagnostic disable-next-line: missing-fields
-			require("nvim-treesitter.configs").setup(opts)
-		end,
-	},
-	{
-		-- Show my current context at the top of the screen
-		"nvim-treesitter/nvim-treesitter-context",
-		config = function()
-			require("treesitter-context")
-		end,
-	},
+				-- you need some mechanism to avoid running on buffers that do not
+				-- correspond to a language (like oil.nvim buffers), this implementation
+				-- checks if a parser exists for the current language
+				local language = vim.treesitter.language.get_lang(filetype) or filetype
+				if not vim.treesitter.language.add(language) then
+					return
+				end
+
+				-- replicate `fold = { enable = true }`
+				vim.wo.foldmethod = "expr"
+				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+				-- replicate `highlight = { enable = true }`
+				vim.treesitter.start(buf, language)
+
+				-- replicate `indent = { enable = true }`
+				vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+				-- `incremental_selection = { enable = true }` cannot be easily replicated
+			end,
+		})
+	end,
 }
--- Look into treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
