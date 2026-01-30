@@ -7,6 +7,9 @@
 -- INFO: For nvim-tree buffer-local keymaps go to: ../plugins/tree.lua
 -- INFO: For completion (cmp) mappings go to: ../plugins/cmp.lua
 
+-- TODO: Add commands (and group) to change settings like indent size or file type.
+--  Maybe use "<leader>c" with desc "Change".
+
 local keymap = vim.keymap.set
 
 --== Native Neovim keymaps
