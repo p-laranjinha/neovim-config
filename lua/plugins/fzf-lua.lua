@@ -9,7 +9,17 @@ return {
 			defaults = {
 				-- copen = false,
 			},
+			winopts = {
+				on_create = function()
+					local MiniNotify = require("mini.notify")
+					local id = MiniNotify.add("Press <F1> for fzf-lua keymaps.", "INFO")
+					vim.defer_fn(function()
+						MiniNotify.remove(id)
+					end, 3000)
+				end,
+			},
 			keymap = {
+				-- These are actions native to fzf, run `man fzf` to find out more.
 				fzf = {
 					["ctrl-q"] = "select-all+accept",
 				},
