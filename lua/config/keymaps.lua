@@ -40,6 +40,9 @@ keymap("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Toggle line wrap
 keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Line wrap" })
 
+-- Change increment number under cursor
+keymap("n", "<C-S-x>", "<C-a>")
+
 --== smart-splits and native window keymaps
 keymap("n", "<leader>wh", function()
 	require("smart-splits").move_cursor_left()
@@ -553,9 +556,15 @@ keymap("n", "<leader>+i", "<C-i>", {
 keymap("n", "<leader>+o", "<C-o>", {
 	desc = "[<C-o>] Jump to last cursor position",
 })
-keymap("n", "<leader>+n", "<cmd>ene<CR>", {
+keymap("n", "<leader>+e", "<cmd>ene<CR>", {
 	desc = "[:ene] Edit new and unnamed buffer",
 })
 keymap("n", "<leader>+m", "<cmd>marks<CR>", {
 	desc = "[:marks] Show marks, use [m*] to add a mark to * and [`*]/['*] to go to the mark at the cursor/line",
+})
+keymap("n", "<leader>+N", "<C-a>", {
+	desc = "[<C-S-x>] Increment number under cursor. Original keymap was <C-a>.",
+})
+keymap("n", "<leader>+n", "<C-x>", {
+	desc = "[<C-x>] Decrement number under cursor.",
 })
