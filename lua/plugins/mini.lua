@@ -4,8 +4,25 @@ return {
 	{ "echasnovski/mini.ai", version = "*", opts = {} },
 	-- Improved commenting.
 	{ "echasnovski/mini.comment", version = "*", opts = {} },
-	-- Move text using Alt.
-	{ "echasnovski/mini.move", version = "*", opts = {} },
+	-- Move text using Ctrl.
+	{
+		"echasnovski/mini.move",
+		version = "*",
+		opts = {
+			mappings = {
+				-- Original mappings use Alt, but because TMUX doesn't support C-S-* to resize windows, I've
+				--  changed this to Ctrl, and window mappings to Alt.
+				left = "<C-h>",
+				right = "<C-l>",
+				down = "<C-j>",
+				up = "<C-k>",
+				line_left = "<C-h>",
+				line_right = "<C-l>",
+				line_down = "<C-j>",
+				line_up = "<C-k>",
+			},
+		},
+	},
 	-- Add, delete, replace, find, highlight surrounding (like pair of parenthesis, quotes, etc.).
 	{ "echasnovski/mini.surround", version = "*", opts = {} },
 	-- Autohighlight word under cursor.
