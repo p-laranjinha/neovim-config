@@ -225,7 +225,6 @@ return {
 			{ "<leader><leader><leader>", icon = { icon = "", color = "cyan" } },
 
 			-- auto-session
-			-- TODO: Replace these sessions with TMUX sessions
 			{ "<leader>\\", group = "Session", icon = "" },
 			{ "<leader>\\\\", icon = { icon = "", color = "cyan" } },
 			{ "<leader>\\d", icon = { icon = "󰆴", color = "red" } },
