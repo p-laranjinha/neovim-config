@@ -40,8 +40,17 @@ keymap("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Toggle line wrap
 keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Line wrap" })
 
+-- Toggle relative line numbers
+keymap("n", "<leader>tr", function()
+	vim.opt.relativenumber = not vim.opt.relativenumber._value
+	vim.g.togglerelativenumber = not vim.g.togglerelativenumber
+end, { desc = "Relative line numbers" })
+
 -- Change increment number under cursor
 keymap("n", "<C-S-x>", "<C-a>")
+
+--== Toggle twilight
+keymap("n", "<leader>tL", "<cmd>Twilight<CR>", { desc = "Twilight" })
 
 --== smart-splits and native window keymaps
 keymap("n", "<leader>wh", function()
