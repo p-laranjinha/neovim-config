@@ -14,7 +14,7 @@ require("mason-tool-installer").setup({
 		-- "nixfmt", -- nix formatter
 		"bashls", -- bash language server
 		"shellcheck", -- bash linter
-		"shfmt", -- bash formatter
+		"beautysh", -- bash formatter
 		"pyright", -- python language server
 		"flake8", -- python linter
 		"black", -- python formatter

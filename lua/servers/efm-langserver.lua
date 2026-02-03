@@ -14,7 +14,7 @@ return function(capabilities)
 	local eslint_d = require("efmls-configs.linters.eslint_d") -- ts/js/json/react/svelte/vue linter
 	local fixjson = require("efmls-configs.formatters.fixjson") -- json formatter
 	local shellcheck = require("efmls-configs.linters.shellcheck") -- bash linter
-	local shfmt = require("efmls-configs.formatters.shfmt") -- bash formatter
+	local beautysh = require("efmls-configs.formatters.beautysh") -- bash formatter
 	local hadolint = require("efmls-configs.linters.hadolint") -- docker linter
 
 	local languages = {
@@ -22,7 +22,9 @@ return function(capabilities)
 		lua = { luacheck, stylua },
 		nix = { statix, nixfmt },
 		markdown = { prettier_d },
-		sh = { shellcheck, shfmt },
+		sh = { shellcheck, beautysh },
+		bash = { shellcheck, beautysh },
+		zsh = { beautysh },
 		python = { flake8, black },
 		docker = { hadolint, prettier_d },
 
