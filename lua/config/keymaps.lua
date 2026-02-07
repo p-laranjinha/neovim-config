@@ -389,6 +389,9 @@ end, { desc = "Inlay hints" })
 keymap("n", "<leader>tf", function()
 	vim.g.autoformat = not vim.g.autoformat
 end, { desc = "Formatting on save" })
+keymap("n", "<leader>tc", function()
+	vim.g.minicursorword_disable = not vim.g.minicursorword_disable
+end, { desc = "Cursor word highlighting" })
 
 --== Diagnostics
 keymap("n", "[x", function()

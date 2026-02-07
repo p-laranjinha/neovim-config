@@ -26,7 +26,14 @@ return {
 	-- Add, delete, replace, find, highlight surrounding (like pair of parenthesis, quotes, etc.).
 	{ "echasnovski/mini.surround", version = "*", opts = {} },
 	-- Autohighlight word under cursor.
-	{ "echasnovski/mini.cursorword", version = "*", opts = {} },
+	{
+		"echasnovski/mini.cursorword",
+		version = "*",
+		config = function()
+			vim.g.minicursorword_disable = true
+			require("mini.cursorword").setup()
+		end,
+	},
 	-- Visualize and work with indent scope.
 	{ "echasnovski/mini.indentscope", version = "*", opts = {} },
 	-- Highlight trailing whitespace.
