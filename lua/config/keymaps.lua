@@ -392,6 +392,13 @@ end, { desc = "Formatting on save" })
 keymap("n", "<leader>tc", function()
 	vim.g.minicursorword_disable = not vim.g.minicursorword_disable
 end, { desc = "Cursor word highlighting" })
+keymap("n", "<leader>tC", function()
+	if vim.opt.conceallevel._value == 0 then
+		vim.opt.conceallevel = 2
+	else
+		vim.opt.conceallevel = 0
+	end
+end, { desc = "Conceal level (0<->2)" })
 
 --== Diagnostics
 keymap("n", "[x", function()
