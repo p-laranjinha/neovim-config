@@ -7,5 +7,7 @@ return {
 			-- This plugin should only color names in the correct places, so this option isn't needed.
 			-- enable_named_colors = false,
 		})
+		-- Colors distract when they're not the focus of the current work
+		require("nvim-highlight-colors").turnOff()
 	end,
 }
