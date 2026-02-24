@@ -60,7 +60,7 @@ keymap("n", "<leader>tC", function()
 	end
 end, { desc = "Conceal level (0<->2)" })
 keymap("n", "<leader>tc", "<cmd>HighlightColors Toggle<cr>", { desc = "Color highlighting" })
-keymap("n", "<leader>tL", "<cmd>Twilight<CR>", { desc = "Twilight" })
+keymap("n", "<leader>tl", "<cmd>Twilight<CR>", { desc = "Twilight" })
 
 --== smart-splits and native window keymaps
 keymap("n", "<leader>wh", function()
@@ -186,7 +186,7 @@ keymap("n", "<leader>?l", function()
 end, { desc = "Buffer-local (LSP, nvim-tree, ...)" })
 
 --== nvim-tree
-keymap("n", "<leader>tT", "<Cmd>NvimTreeFindFileToggle<CR>", { desc = "File explorer (Tree)" })
+keymap("n", "<leader>te", "<Cmd>NvimTreeFindFileToggle<CR>", { desc = "File explorer (Tree)" })
 keymap("n", "<leader>e", "<Cmd>NvimTreeFindFileToggle<CR>", { desc = "File explorer (Tree)" })
 
 --== undotree
