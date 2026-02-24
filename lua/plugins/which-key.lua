@@ -6,6 +6,7 @@ return {
 		local which_key = require("which-key")
 		which_key.setup({
 			preset = "modern",
+			delay = 0,
 		})
 		-- Find default icons and colors on: https://github.com/folke/which-key.nvim/blob/main/lua/which-key/icons.lua
 		-- Find more icons on: https://www.nerdfonts.com/cheat-sheet
