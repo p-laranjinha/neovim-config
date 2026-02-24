@@ -37,19 +37,29 @@ keymap("v", "<leader>p", '"_dP', { desc = "Paste without yanking" })
 -- Clear search highlighting by pressing <Esc> in normal mode.
 keymap("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Toggle line wrap
-keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Line wrap" })
+-- Change increment number under cursor
+keymap("n", "<C-S-x>", "<C-a>")
 
--- Toggle relative line numbers
+--== Toggles
+keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", { desc = "Line wrap" })
 keymap("n", "<leader>tr", function()
 	vim.opt.relativenumber = not vim.opt.relativenumber._value
 	vim.g.togglerelativenumber = not vim.g.togglerelativenumber
 end, { desc = "Relative line numbers" })
-
--- Change increment number under cursor
-keymap("n", "<C-S-x>", "<C-a>")
-
---== Toggle twilight
+keymap("n", "<leader>tf", function()
+	vim.g.autoformat = not vim.g.autoformat
+end, { desc = "Formatting on save" })
+keymap("n", "<leader>th", function()
+	vim.g.minicursorword_disable = not vim.g.minicursorword_disable
+end, { desc = "Cursor word highlighting" })
+keymap("n", "<leader>tC", function()
+	if vim.opt.conceallevel._value == 0 then
+		vim.opt.conceallevel = 2
+	else
+		vim.opt.conceallevel = 0
+	end
+end, { desc = "Conceal level (0<->2)" })
+keymap("n", "<leader>tc", "<cmd>HighlightColors Toggle<cr>", { desc = "Color highlighting" })
 keymap("n", "<leader>tL", "<cmd>Twilight<CR>", { desc = "Twilight" })
 
 --== smart-splits and native window keymaps
@@ -353,7 +363,7 @@ keymap("n", "<leader>li", "<cmd>FzfLua lsp_implementations<CR>", { desc = "Imple
 -- Jump to the type of the word under the cursor
 -- Useful when I'm not sure what type a variable is and I want to see
 --  the definition of its type, not where it was defined.
-keymap("n", "<leader>lt", "<cmd>FzfLua lsp_typedefs<CR>", { desc = "Type definitions" })
+keymap("n", "<leader>lT", "<cmd>FzfLua lsp_typedefs<CR>", { desc = "Type definitions" })
 
 -- Fuzzy find all the symbols in the current document.
 --  Symbols are things like variables, functions, types, etc.
@@ -373,33 +383,19 @@ keymap("n", "<leader>lD", "<cmd>FzfLua lsp_declarations<CR>", { desc = "Declarat
 -- Toggles
 keymap(
 	"n",
-	"<leader>ts",
+	"<leader>lts",
 	"<cmd>Trouble lsp_document_symbols toggle focus=false multiline=false win.position=right<cr>",
 	{ desc = "LSP Document Symbols" }
 )
 keymap(
 	"n",
-	"<leader>tl",
+	"<leader>ltl",
 	"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
 	{ desc = "LSP definitions, references, ..." }
 )
-keymap("n", "<leader>th", function()
+keymap("n", "<leader>lth", function()
 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Inlay hints" })
-keymap("n", "<leader>tf", function()
-	vim.g.autoformat = not vim.g.autoformat
-end, { desc = "Formatting on save" })
-keymap("n", "<leader>th", function()
-	vim.g.minicursorword_disable = not vim.g.minicursorword_disable
-end, { desc = "Cursor word highlighting" })
-keymap("n", "<leader>tc", "<cmd>HighlightColors Toggle<cr>", { desc = "Color highlighting" })
-keymap("n", "<leader>tC", function()
-	if vim.opt.conceallevel._value == 0 then
-		vim.opt.conceallevel = 2
-	else
-		vim.opt.conceallevel = 0
-	end
-end, { desc = "Conceal level (0<->2)" })
 
 --== Diagnostics
 keymap("n", "[x", function()
@@ -414,21 +410,21 @@ end, { desc = "First diagnostic" })
 keymap("n", "]X", function()
 	vim.diagnostic.jump({ count = 999, float = true })
 end, { desc = "Last diagnostic" })
-keymap("n", "<leader>xx", function()
+keymap("n", "<leader>xc", function()
 	vim.diagnostic.open_float({ scope = "cursor" })
 end, { desc = "Cursor diagnostics" })
-keymap("n", "<leader>xX", function()
+keymap("n", "<leader>xl", function()
 	vim.diagnostic.open_float({ scope = "line" })
 end, { desc = "Line diagnostics" })
-keymap("n", "<leader>tv", require("utils.diagnostics").toggle_virtual_lines, { desc = "Diagnostic virtual lines" })
-keymap("n", "<leader>xs", function()
+keymap("n", "<leader>xd", function()
 	require("fzf-lua").diagnostics_document()
 end, { desc = "Search document diagnostics" })
-keymap("n", "<leader>xS", function()
+keymap("n", "<leader>xw", function()
 	require("fzf-lua").diagnostics_workspace()
 end, { desc = "Search workspace diagnostics" })
-keymap("n", "<leader>tx", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Buffer diagnostics" })
-keymap("n", "<leader>tX", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Workspace diagnostics" })
+keymap("n", "<leader>xtv", require("utils.diagnostics").toggle_virtual_lines, { desc = "Virtual lines" })
+keymap("n", "<leader>xtd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Document diagnostics" })
+keymap("n", "<leader>xtw", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Workspace diagnostics" })
 
 --== DAP
 keymap("n", "<leader>dB", function()
