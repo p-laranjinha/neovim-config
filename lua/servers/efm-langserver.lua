@@ -16,6 +16,7 @@ return function(capabilities)
 	local shellcheck = require("efmls-configs.linters.shellcheck") -- bash linter
 	local beautysh = require("efmls-configs.formatters.beautysh") -- bash formatter
 	local hadolint = require("efmls-configs.linters.hadolint") -- docker linter
+	local kdlfmt = require("efmls-configs.formatters.kdlfmt") -- kdl (niri config) formatter
 
 	local languages = {
 		-- { linter, formatter }
@@ -27,6 +28,7 @@ return function(capabilities)
 		zsh = { beautysh },
 		python = { flake8, black },
 		docker = { hadolint, prettier_d },
+		kdl = { kdlfmt },
 
 		html = { prettier_d },
 		css = { prettier_d },

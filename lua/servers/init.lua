@@ -20,6 +20,7 @@ require("mason-tool-installer").setup({
 		"black", -- python formatter
 		"dockerls", -- docker language server
 		"hadolint", -- docker linter
+		"kdlfmt", -- kdl (niri config) formatter
 
 		"ts_ls", -- ts/js language server
 		"eslint_d", -- ts/js/json/etc. linter
