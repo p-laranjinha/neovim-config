@@ -249,7 +249,7 @@ keymap("n", "<leader>sf", function()
 		-- Remove git submodules from search results.
 		-- Default value:
 		--  https://github.com/ibhagwan/fzf-lua/blob/d59f857c76eb474ec00debcf043f14fd001805cc/lua/fzf-lua/defaults.lua#L523
-		fd_opts = [[--color=never --type f --type l --exclude .git $(git config --file .gitmodules --get-regexp path | awk 'BEGIN { ORS=" " }; { print "--exclude " $2 }')]],
+		fd_opts = [[--color=never --type f --type l -L --exclude .git $(git config --file .gitmodules --get-regexp path | awk 'BEGIN { ORS=" " }; { print "--exclude " $2 }')]],
 	})
 end, { desc = "Files" })
 keymap("n", "<leader>sn", function()
@@ -261,7 +261,7 @@ keymap("n", "<leader>si", function()
 	require("fzf-lua").files({
 		-- Basically add '--no-ignore' to the default value in
 		--  https://github.com/ibhagwan/fzf-lua/blob/d59f857c76eb474ec00debcf043f14fd001805cc/lua/fzf-lua/defaults.lua#L523
-		fd_opts = [[--color=never --type f --type l --exclude .git --no-ignore]],
+		fd_opts = [[--color=never --type f --type l -L --exclude .git --no-ignore]],
 	})
 end, { desc = "Files (including ignored)" })
 keymap("n", "<leader>so", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
