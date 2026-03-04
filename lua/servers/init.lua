@@ -39,6 +39,7 @@ require("servers.lua_ls")(capabilities)
 require("servers.bashls")(capabilities)
 require("servers.pyright")(capabilities)
 require("servers.dockerls")(capabilities)
+require("servers.qmlls")(capabilities)
 
 require("servers.ts_ls")(capabilities)
 require("servers.emmet_ls")(capabilities)
