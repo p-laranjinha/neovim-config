@@ -591,8 +591,11 @@ keymap("n", "<leader>+m", "<cmd>marks<CR>", {
 	desc = "[:marks] Show marks, use [m*] to add a mark to * and [`*]/['*] to go to the mark at the cursor/line",
 })
 keymap("n", "<leader>+N", "<C-a>", {
-	desc = "[<C-S-x>] Increment number under cursor. Original keymap was <C-a>.",
+	desc = "[<C-S-x>] Increment number under cursor. Original keymap is <C-a>.",
 })
 keymap("n", "<leader>+n", "<C-x>", {
 	desc = "[<C-x>] Decrement number under cursor.",
+})
+keymap("n", "<leader>+s", ":Sops ", {
+	desc = "[:Sops ] Edit/encrypt/decrypt/... files with sops.",
 })
