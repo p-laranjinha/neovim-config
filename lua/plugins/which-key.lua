@@ -100,8 +100,8 @@ return {
 			{ "<leader>tC", icon = { icon = "󰉾", color = "white" } },
 
 			-- LSP icons.
-			{ "<leader>l", group = "LSP", icon = { icon = "🅻", color = "cyan" } },
-			{ "<leader>lf", icon = { icon = "🅻", color = "cyan" } },
+			{ "<leader>l", group = "LSP", icon = { icon = "󰰍", color = "cyan" } },
+			{ "<leader>lf", icon = { icon = "󰰍", color = "cyan" } },
 			{ "<leader>ls", icon = { icon = "", color = "green" } },
 			{ "<leader>lS", icon = { icon = "", color = "green" } },
 			{ "<leader>lr", icon = { icon = "", color = "cyan" } },
@@ -115,7 +115,7 @@ return {
 			{ "<leader>lt", group = "Toggle" },
 			{ "<leader>lts", icon = { icon = "", color = "yellow" } },
 			{ "<leader>lth", icon = { icon = "󰫧", color = "yellow" } },
-			{ "<leader>ltl", icon = { icon = "🅻", color = "yellow" } },
+			{ "<leader>ltl", icon = { icon = "󰰍", color = "yellow" } },
 
 			-- Diagnostic icons.
 			{ "<leader>x", group = "Diagnostics", icon = { icon = "󱖫", color = "red" } },

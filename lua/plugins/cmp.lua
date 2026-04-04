@@ -37,7 +37,7 @@ return {
 						luasnip = "",
 						buffer = "",
 						path = "",
-						nvim_lsp = "🅻",
+						nvim_lsp = "󰰍",
 					},
 				}),
 			},
