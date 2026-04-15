@@ -5,5 +5,6 @@ return {
 	opts = {
 		at_edge = "stop",
 		cursor_follows_swapped_bufs = true,
+		default_amount = 1,
 	},
 }

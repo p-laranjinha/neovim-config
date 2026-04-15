@@ -197,13 +197,13 @@ return {
 
 			-- Window
 			{ "<leader>w", group = "Window", icon = { icon = "", color = "grey" } },
-			{ "<leader>ws", icon = { icon = "", color = "orange" } },
-			{ "<leader>wv", icon = { icon = "", color = "orange" } },
+			{ "<leader>w\\", icon = { icon = "", color = "orange" } },
+			{ "<leader>w-", icon = { icon = "", color = "orange" } },
 			{ "<leader>wh", icon = { icon = "󱂪", color = "grey" } },
 			{ "<leader>wj", icon = { icon = "󱂩", color = "grey" } },
 			{ "<leader>wk", icon = { icon = "󱔓", color = "grey" } },
 			{ "<leader>wl", icon = { icon = "󱂫", color = "grey" } },
-			{ "<leader>w\\", icon = { icon = "󰮳", color = "grey" } },
+			{ "<leader>w;", icon = { icon = "󰮳", color = "grey" } },
 			{ "<leader>wH", icon = { icon = "", color = "yellow" } },
 			{ "<leader>wJ", icon = { icon = "", color = "yellow" } },
 			{ "<leader>wK", icon = { icon = "", color = "yellow" } },
