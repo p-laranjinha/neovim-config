@@ -3,13 +3,14 @@
 --- @param capabilities table LSP client capabilities (from nvim-cmp)
 --- @return nil
 return function(capabilities)
-	-- https://github.com/creativenull/efmls-configs-nvim/blob/main/doc/SUPPORTED_LIST.md
+	-- INFO: https://github.com/creativenull/efmls-configs-nvim/blob/main/doc/SUPPORTED_LIST.md
 	local luacheck = require("efmls-configs.linters.luacheck") -- lua linter
 	local stylua = require("efmls-configs.formatters.stylua") -- lua formatter
 	local statix = require("efmls-configs.linters.statix") -- nix linter
 	local nixfmt = require("efmls-configs.formatters.nixfmt") -- nix formatter
 	local flake8 = require("efmls-configs.linters.flake8") -- python linter
 	local black = require("efmls-configs.formatters.black") -- python formatter
+	local clang_format = require("efmls-configs.formatters.clang_format") -- c/c++ formatter
 	local prettier_d = require("efmls-configs.formatters.prettier_d") -- ts/js/json/docker/html/css/react/svelte/vue formatter
 	local eslint_d = require("efmls-configs.linters.eslint_d") -- ts/js/json/react/svelte/vue linter
 	local fixjson = require("efmls-configs.formatters.fixjson") -- json formatter
@@ -19,6 +20,8 @@ return function(capabilities)
 	local kdlfmt = require("efmls-configs.formatters.kdlfmt") -- kdl (niri config) formatter
 
 	local languages = {
+		-- INFO: https://github.com/neovim/neovim/blob/master/runtime/lua/vim/filetype.lua
+
 		-- { linter, formatter }
 		lua = { luacheck, stylua },
 		nix = { statix, nixfmt },
@@ -27,6 +30,8 @@ return function(capabilities)
 		bash = { shellcheck, beautysh },
 		zsh = { beautysh },
 		python = { flake8, black },
+		c = { clang_format },
+		cpp = { clang_format },
 		docker = { hadolint, prettier_d },
 		kdl = { kdlfmt },
 

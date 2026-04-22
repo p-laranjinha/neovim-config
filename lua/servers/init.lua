@@ -6,18 +6,26 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("mason-tool-installer").setup({
 	ensure_installed = {
 		"efm", -- language server that applies the linters and formatters
+
 		"lua_ls", -- lua language server
 		"luacheck", -- lua linter
 		"stylua", -- lua formatter
+
 		"nil_ls", -- nix language server
 		-- "statix", -- nix linter
 		-- "nixfmt", -- nix formatter
+
 		"bashls", -- bash language server
 		"shellcheck", -- bash linter
 		"beautysh", -- bash formatter
+
 		"pyright", -- python language server
 		"flake8", -- python linter
 		"black", -- python formatter
+
+		"clangd", -- c/c++ language server
+		"clang-format", -- c/c++ formatter
+
 		"dockerls", -- docker language server
 		"hadolint", -- docker linter
 		"kdlfmt", -- kdl (niri config) formatter
@@ -38,12 +46,11 @@ require("mason-tool-installer").setup({
 require("servers.lua_ls")(capabilities)
 require("servers.bashls")(capabilities)
 require("servers.pyright")(capabilities)
+require("servers.clangd")(capabilities)
 require("servers.dockerls")(capabilities)
 require("servers.qmlls")(capabilities)
-
 require("servers.ts_ls")(capabilities)
 require("servers.emmet_ls")(capabilities)
-
 require("servers.jsonls")(capabilities)
 require("servers.yamlls")(capabilities)
 require("servers.tombi")(capabilities)
