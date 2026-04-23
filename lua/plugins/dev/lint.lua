@@ -5,7 +5,7 @@ return {
 	config = function()
 		local lint = require("lint")
 		-- INFO: Get available linters at:
-		--  https://github.com/mfussenegger/nvim-lint/tree/master/doc#available-linters
+		--  https://github.com/mfussenegger/nvim-lint/tree/master#available-linters
 		--  https://github.com/mfussenegger/nvim-lint/tree/master/lua/lint/linters
 		-- INFO: Get all available filetypes at:
 		--  https://github.com/neovim/neovim/blob/master/runtime/lua/vim/filetype.lua
@@ -19,6 +19,7 @@ return {
 			c = { "clangtidy" },
 			cpp = { "clangtidy" },
 			dockerfile = { "hadolint" },
+			cmake = { "cmakelint" },
 
 			javascript = { "eslint_d" },
 			javascriptreact = { "eslint_d" },

@@ -106,6 +106,7 @@ M.setup = function()
 	---@type table<string, vim.lsp.Config>
 	local servers = vim.tbl_extend("error", servers_ensure_installed, {
 		clangd = {}, -- c/c++
+		cmake = {}, -- CMakeLists.txt
 	})
 
 	local ensure_installed = vim.tbl_keys(servers_ensure_installed or {})

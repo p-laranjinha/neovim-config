@@ -23,6 +23,7 @@ return {
 			zsh = { "beautysh" },
 			dockerfile = { "prettierd" },
 			kdl = { "kdlfmt" }, -- niri config files
+			cmake = { "gersemi" },
 
 			html = { "prettierd" },
 			css = { "prettierd" },
