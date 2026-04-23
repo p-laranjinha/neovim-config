@@ -48,20 +48,26 @@ M.on_attach = function(event)
 	-- 	vim.lsp.inlay_hint.enable()
 	-- end
 
-	if client.name == "efm" then
-		-- format on save using efm langserver and configured formatters
-		local lsp_fmt_group = vim.api.nvim_create_augroup("FormatOnSaveGroup", {})
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = lsp_fmt_group,
-			callback = function()
-				local efm = vim.lsp.get_clients({ name = "efm" })
-				if vim.tbl_isempty(efm) then
-					return
-				end
-				if vim.g.autoformat then
-					-- async=true causes the file to not be saved after the format
-					vim.lsp.buf.format({ name = "efm", async = false })
-				end
+	-- Highlight references of the word under your cursor when your cursor rests there for a little
+	--  while.
+	-- See `:help CursorHold` for information about when this is executed
+	if client and client:supports_method("textDocument/documentHighlight", event.buf) then
+		local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+			buffer = event.buf,
+			group = highlight_augroup,
+			callback = vim.lsp.buf.document_highlight,
+		})
+		vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+			buffer = event.buf,
+			group = highlight_augroup,
+			callback = vim.lsp.buf.clear_references,
+		})
+		vim.api.nvim_create_autocmd("LspDetach", {
+			group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+			callback = function(event2)
+				vim.lsp.buf.clear_references()
+				vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event2.buf })
 			end,
 		})
 	end

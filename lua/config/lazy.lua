@@ -32,10 +32,10 @@ require("config.keymaps")
 require("config.autocmds")
 require("config.commands")
 
-local plugins_dir = "plugins"
 require("lazy").setup({
 	spec = {
-		{ import = plugins_dir },
+		{ import = "plugins" },
+		{ import = "plugins.dev" },
 	},
 	rtp = {
 		disabled_plugins = {

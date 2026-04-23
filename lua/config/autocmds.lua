@@ -1,6 +1,6 @@
 -- Automatically run code on defined events.
 
--- INFO: For LSP buffer-local autocmds go to: ../utils/lsp.lua
+-- INFO: For LSP buffer-local autocmds go to: ../utils/lsp-on-attach.lua
 
 -- Restore last cursor position when reopening a file
 local last_cursor_group = vim.api.nvim_create_augroup("LastCursorGroup", {})
