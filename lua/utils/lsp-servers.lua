@@ -104,8 +104,8 @@ M.setup = function()
 	}
 	-- Language servers to enable but not automatically install.
 	---@type table<string, vim.lsp.Config>
-	local servers = vim.list_extend(servers_ensure_installed, {
-		clangd = {},
+	local servers = vim.tbl_extend("error", servers_ensure_installed, {
+		clangd = {}, -- c/c++
 	})
 
 	local ensure_installed = vim.tbl_keys(servers_ensure_installed or {})

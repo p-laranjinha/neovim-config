@@ -346,6 +346,11 @@ keymap({ "o", "x" }, "ag", "<cmd>Gitsigns select_hunk<CR>", { desc = "Git hunk" 
 keymap("n", "<leader>r", vim.lsp.buf.rename, { desc = "Rename" })
 keymap("n", "<leader>lR", vim.lsp.buf.rename, { desc = "Rename" })
 
+-- Organize imports (most LSPs don't support this).
+keymap("n", "<leader>lo", function()
+	vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
+end, { desc = "Organize imports" })
+
 -- A combination of many of the keymaps below.
 keymap("n", "<leader>lf", "<cmd>FzfLua lsp_finder<CR>", { desc = "Finder (definitions, references, ...)" })
 

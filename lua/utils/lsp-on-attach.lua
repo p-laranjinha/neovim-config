@@ -25,24 +25,6 @@ M.on_attach = function(event)
 		)
 	end
 
-	-- Order Imports (if supported by the client LSP)
-	if client:supports_method("textDocument/codeAction", bufnr) then
-		keymap("n", "<leader>lo", function()
-			vim.lsp.buf.code_action({
-				context = {
-					only = { "source.organizeImports" },
-					diagnostics = {},
-				},
-				apply = true,
-				bufnr = bufnr,
-			})
-			-- format after changing import order
-			vim.defer_fn(function()
-				vim.lsp.buf.format({ bufnr = bufnr })
-			end, 50) -- slight delay to allow for the import order to go first
-		end, { desc = "Organize imports" })
-	end
-
 	-- Enable inlay hints on buffers that support it
 	-- if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
 	-- 	vim.lsp.inlay_hint.enable()
