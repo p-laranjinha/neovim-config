@@ -281,7 +281,7 @@ keymap("n", "<leader>tq", "<cmd>Trouble qflist toggle<CR>", { desc = "Quickfix l
 -- keymap("n", "<leader>tl", "<cmd>Trouble loclist toggle<CR>", { desc = "Location list" })
 
 --== markview
-keymap("n", "<leader>tm", "<cmd>Markview<CR>", { desc = "Markview" })
+keymap("n", "<leader>tm", "<cmd>Markview Toggle<CR>", { desc = "Markview" })
 
 --== harpoon
 keymap("n", "<leader><leader>j", function()
