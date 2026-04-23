@@ -48,5 +48,17 @@ return {
 				icon_provider = "mini",
 			},
 		})
+		-- Fixes the weird rendering when I open Neovim on a file that was closed with Markview disabled.
+		-- This doesn't fix the same weird rendering when I: disable Markview, change buffer, enable
+		--  Markview, return to the markdown buffer; but its better than before.
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "MarkviewAttach",
+			callback = function(event)
+				vim.cmd("Markview Toggle")
+				vim.defer_fn(function()
+					vim.cmd("Markview Toggle")
+				end, 0)
+			end,
+		})
 	end,
 }
