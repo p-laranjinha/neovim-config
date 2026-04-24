@@ -6,6 +6,14 @@
 local M = {}
 
 M.setup = function()
+	vim.filetype.add({
+		extension = {
+			-- Changing these extensions to match the OpenGL shader filetype.
+			fs = "glsl",
+			vs = "glsl",
+		},
+	})
+
 	-- Language servers to enable and automatically install using Mason.
 	---@type table<string, vim.lsp.Config>
 	local servers_ensure_installed = {
@@ -101,6 +109,7 @@ M.setup = function()
 		nil_ls = {}, -- nix
 		pyright = {}, -- pyright
 		qmlls = {}, -- qml
+		glsl_analyzer = {}, -- OpenGL shader language
 	}
 	-- Language servers to enable but not automatically install.
 	---@type table<string, vim.lsp.Config>

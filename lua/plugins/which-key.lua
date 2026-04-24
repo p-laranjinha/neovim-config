@@ -224,10 +224,6 @@ return {
 			-- harpoon
 			{ "<leader><leader>", group = "Harpoon", icon = { icon = "󱡅", color = "green" } },
 			{ "<leader><leader>a", icon = { icon = "", color = "grey" } },
-			{ "<leader><leader>j", icon = { icon = "󰬺", color = "green" } },
-			{ "<leader><leader>k", icon = { icon = "󰬻", color = "green" } },
-			{ "<leader><leader>l", icon = { icon = "󰬼", color = "green" } },
-			{ "<leader><leader>;", icon = { icon = "󰬽", color = "green" } },
 			{ "<leader><leader>p", icon = { icon = "󰍠", color = "green" } },
 			{ "<leader><leader>n", icon = { icon = "󰍝", color = "green" } },
 			{ "<leader><leader><leader>", icon = { icon = "", color = "cyan" } },

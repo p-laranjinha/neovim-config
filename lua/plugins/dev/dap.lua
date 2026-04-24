@@ -27,6 +27,8 @@ return {
 				-- Additional handler configuration.
 				handlers = {},
 				-- When a DAP command/keymap is done, automatically install the debuggers for the following languages.
+				-- Get all possible values for here at:
+				--  https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
 				ensure_installed = {
 					"python",
 				},
